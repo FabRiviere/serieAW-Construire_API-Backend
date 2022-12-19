@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "API Node.js, Express, MOngoDB pour l'application frontend Beer Paradise",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FabRiviere/serieAW-Construire_API-Backend.git"
+  },
+  "keywords": [
+    "API",
+    "Node.js",
+    "Express",
+    "MongoDB",
+    "Mongoose"
+  ],
+  "author": "Activateur Web",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FabRiviere/serieAW-Construire_API-Backend/issues"
+  },
+  "homepage": "https://github.com/FabRiviere/serieAW-Construire_API-Backend#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
