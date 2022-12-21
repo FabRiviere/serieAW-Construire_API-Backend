@@ -25,7 +25,10 @@
   "homepage": "https://github.com/FabRiviere/serieAW-Construire_API-Backend#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "helmet": "^6.0.1",
+    "joi": "^17.7.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.8.1",
     "mongoose-unique-validator": "^3.1.0",

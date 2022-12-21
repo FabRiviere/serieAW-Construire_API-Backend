@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const helmet = require('helmet');
+require('dotenv').config();
 
 
 const userRoutes = require('./routes/users');
@@ -9,7 +11,7 @@ const beerRoutes = require('./routes/beers');
 const app = express();
 
 mongoose.set('strictQuery', true);
-mongoose.connect('mongodb+srv://fabsolo:FabSabKat2311@cluster0.ktvxb.mongodb.net/FullstackBeer?retryWrites=true&w=majority',
+mongoose.connect( process.env.MONGODB_PATH,
 {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -24,6 +26,10 @@ app.use((req, res, next) => {
    res.setHeader('Access-Control-Allow-Credentials', true);
    next();
 }); 
+
+app.use(helmet({
+    crossOriginResourcePolicy: false,
+}))
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));

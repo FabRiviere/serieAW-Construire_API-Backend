@@ -32,15 +32,29 @@ exports.createBeer = (req, res, next) => {
  
 // ; Modifier et mettre à jour une bière
 exports.modifyBeer = (req, res, next) => {
-   const beerObject = req.file ? {
-      ...JSON.parse(req.body.beer),
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-   } : { ...req.body };
-   
-    Beer.updateOne({ _id: req.params.id }, { ...beerObject, _id: req.params.id })
-       .then(() => res.status(200).json({ message: 'Produit modifié avec succès !'}))
-       .catch(error => res.status(400).json({ error }));
+   if(req.file) {
+      Beer.findOne({ _id: req.params.id })
+         .then(beer => {
+            const filename = beer.imageUrl.split('/images/')[1];
+            fs.unlink(`images/${filename}`, () => {
+               const beerObject = {
+                  ...JSON.parse(req.body.beer),
+                  imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+               }
+               Beer.updateOne({ _id: req.params.id }, { ...beerObject, _id: req.params.id })
+                  .then(() => res.status(200).json({ message: 'La Bière a été modifiée avec succès !'}))
+                  .catch(error => res.status(400).json({ error }));
+            })
+         })
+         .catch(error => res.status(500).json({ error }));
+   } else {
+      const beerObject = { ...req.body };
+      Beer.updateOne({ _id: req.params.id }, { ...beerObject, _id: req.params.id })
+         .then(() => res.status(200).json({ message: 'Votre bière a été modifiée avec succès !'}))
+         .catch(error => res.status(400).json({ error }));
+   }
  };
+
 
 
 //; Suppression d'une bière
